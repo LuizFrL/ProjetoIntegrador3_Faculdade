@@ -1,6 +1,7 @@
-from ProjetoIntegrador3_Faculdade.Projeto_1.Diretorio import ArquivosDir
-from ProjetoIntegrador3_Faculdade.Projeto_1.InformacoersArquivos import ArquivoInf
-import os, shutil
+import os
+import shutil
+from ProjetoIntegrador3_Faculdade.Projeto_1.Funcoes_dir.Diretorio import ArquivosDir
+from ProjetoIntegrador3_Faculdade.Projeto_1.Funcoes_dir.InformacoersArquivos import ArquivoInf
 
 
 class OrganizarArquivos(ArquivosDir):
@@ -42,7 +43,8 @@ class OrganizarArquivos(ArquivosDir):
         arquivos_organizados = self.__organizar_lista_arquivos(config, pasta_nao_regis)
         for pasta, arquivos in arquivos_organizados.items():
             nova_pasta = self.diretorio_destino + r'\{}'.format(pasta)
-            os.makedirs(nova_pasta)
+            if not os.path.exists(nova_pasta):
+                os.makedirs(nova_pasta)
             for arquivo in arquivos:
                 novo_diretorio = nova_pasta + r'\{}'.format(os.path.basename(arquivo))
                 shutil.move(arquivo, novo_diretorio)

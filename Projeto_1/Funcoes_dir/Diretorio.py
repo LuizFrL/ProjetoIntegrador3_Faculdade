@@ -3,7 +3,7 @@ Organizador de diretórios
 """
 import os
 from glob import glob
-from ProjetoIntegrador3_Faculdade.Projeto_1.InformacoersArquivos import ArquivoInf
+from ProjetoIntegrador3_Faculdade.Projeto_1.Funcoes_dir.InformacoersArquivos import ArquivoInf
 
 
 class ArquivosDir(object):
@@ -32,7 +32,6 @@ class ArquivosDir(object):
         extensoes = []
         for arquivo in self.arquivos():
             extensoes.append(ArquivoInf(arquivo).extensao_arquivo())
-
         return self.__remove_repetidos(extensoes)
 
     @staticmethod
