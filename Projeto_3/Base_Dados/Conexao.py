@@ -22,8 +22,7 @@ class Conexao(object):
         CREATE TABLE IF NOT EXISTS Compras (
         produto text,
         preco float,
-        cliente text,
-        funcionario text
+        cliente text
         )
         """
         for q in list(query.split('|')):
@@ -51,4 +50,3 @@ if __name__ == '__main__':
     a.insert_query("INSERT INTO Funcionarios VALUES ('Gustavo Coelho Finger', '063.632.711.69', '1000')")
     result = a.select_query('SELECT * FROM Funcionarios')
     print(result.values())
-
