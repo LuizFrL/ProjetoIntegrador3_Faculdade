@@ -32,16 +32,21 @@ class Gerente(Conexao):
         self.delete_items(produtos, 'Produtos', 'nome_produto')
 
 
-    def update_produto(self):
-        produtos = self.get_produtos().values()
-        self.upgrade_items(produtos)
-
-
-    def update_funcionario(self):
-        pass
-
-    def upgrade_items(self, inf, table):
-        pass
+    def update_preco_produto(self):
+        produtos = list(self.get_produtos().values())
+        for i, val in enumerate(produtos):
+            print(i, end='')
+            for v in val.values():
+                print(' - ', end=f'{v}')
+            print()
+        escolha = int(input('Deseja mudar o preço de qual produto? '))
+        item = produtos[escolha]
+        query = f"""
+        UPDATE Produtos
+        SET preco = '{float(input("Digite o novo preço: "))}'
+        WHERE id = '{item["id"]}'
+        """
+        self.update_delete_query(query)
 
     def delete_items(self, inf, table, key):
         if inf:
@@ -58,5 +63,4 @@ class Gerente(Conexao):
 
 if __name__ == '__main__':
     gerente = Gerente()
-    gerente.adicionar_produto()
-    gerente.update_produto()
+    gerente.update_preco_produto()
