@@ -5,6 +5,12 @@ class Gerente(Conexao):
     def __init__(self):
         Conexao.__init__(self)
 
+    def get_produtos(self):
+        return self.select_query('SELECT * FROM Produtos')
+
+    def get_funcionarios(self):
+        return self.select_query('SELECT * FROM Funcionarios')
+
     def adicionar_produto(self):
         nome_produto = input('Nome do produto: ')
         preco_produto = float(input('Preço: '))
@@ -17,14 +23,25 @@ class Gerente(Conexao):
         self.insert_query(f"INSERT INTO Funcionarios VALUES ('{nome}', '{cpf}', '{salario}')")
 
     def remover_funcionario(self):
-        funcionarios = self.select_query('SELECT * FROM Funcionarios')
+        funcionarios = self.get_funcionarios()
         self.delete_items(funcionarios, 'Funcionarios', 'nome')
 
 
     def remover_produto(self):
-        produtos = self.select_query('SELECT * FROM Produtos')
+        produtos = self.get_produtos()
         self.delete_items(produtos, 'Produtos', 'nome_produto')
 
+
+    def update_produto(self):
+        produtos = self.get_produtos().values()
+        self.upgrade_items(produtos)
+
+
+    def update_funcionario(self):
+        pass
+
+    def upgrade_items(self, inf, table):
+        pass
 
     def delete_items(self, inf, table, key):
         if inf:
@@ -36,10 +53,10 @@ class Gerente(Conexao):
             print('Nada registrado')
             return
         escolha = int(input('\nO que deseja remover? '))
-
         self.update_delete_query(f"DELETE FROM {table} WHERE {key} = '{inf[escolha][key]}'")
 
 
 if __name__ == '__main__':
     gerente = Gerente()
-    gerente.remover_produto()
+    gerente.adicionar_produto()
+    gerente.update_produto()
